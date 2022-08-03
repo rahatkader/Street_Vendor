@@ -1,0 +1,58 @@
+﻿@model Street_Vendors.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "EditPic";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+@using (Html.BeginForm("EditPic", "Manage", FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="borderback">
+            <div class="form-horizontal">
+                <div class="row">
+                    <div class="col-sm-4 mx-auto login-main border rounded pb-4 pt-5">
+                        <div class="form-group">
+                            <div class="col-md-4 col-10 heading-image text-white text-center">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <!--</div>-->
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "col - md - 2 control - label labelAlign" })
+                            <div class="col-md-10">
+                                <input type="file" name="ImageFile" required />
+                                <p class="warning">@TempData["msg"]</p>
+                                @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="form-inline">
+                            <div class="col-md-10">
+                                <input type="submit" value="Change" class="btn buttonCreate" />
+                                <button type="button" onclick="location.href='@Url.Action("Index")'" class="btn buttonCancel">Back</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="bubble-boxes">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}

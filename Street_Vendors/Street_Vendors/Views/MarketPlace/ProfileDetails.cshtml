@@ -1,0 +1,95 @@
+﻿@model Street_Vendors.Models.ApplicationUser
+@{
+    ViewBag.Title = "ProfileDetails";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<div class="row">
+    <div class="pictures h-100">
+
+        <ul class="bubble-boxes">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class="col-12 center-col">
+            <div class="picturesimg">
+                @if (Model.ImagePath != null)
+                {
+                    var imgPath = Model.ImagePath;
+                    <img src=@Url.Content(imgPath) class="align-self-start rounded-circle" style="width:250px;height:250px; float:left">
+                }
+                else
+                {
+                    var imgPath = "~/images/profile/profile_2.jpg";
+                    <img src=@Url.Content(imgPath) class="align-self-start rounded-circle" style="width:250px;height:250px; float:left">
+                }
+                <br />
+                <div class="picturestext">
+                    <h4 data-aos="zoom-in-down" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin">
+                        <span class="badge badge-pill badge-secondary">Username:</span>
+                        <span class="badge badge-pill badge-info">@Model.Email</span>
+                    </h4>
+                    @if (Model.PhoneNumber != null)
+                    {
+                        <h4 data-aos="zoom-in-down" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin">
+                            <span class="badge badge-pill badge-secondary">Phone number:</span>
+                            <span class="badge badge-pill badge-info">@Model.PhoneNumber</span>
+                        </h4>
+                    }
+
+                    @if (Model.Type != null)
+                    {
+                        <h4 data-aos="zoom-in-down" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin">
+                            <span class="badge badge-pill badge-secondary">Types: </span>
+                            <span class="badge badge-pill badge-info"> @Model.Type</span>
+                        </h4>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 mt-3 mb-2">
+
+            @foreach (var item in ViewBag.items)
+            {
+                if (Model.Id.Equals(item.UserId))
+                {
+                    <div data-aos="zoom-in-down" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin" class="card cardMyshop">
+                        <div class="view overlay">
+                            @if (!string.IsNullOrWhiteSpace(item.ItemImage))
+                            {
+                                <img src="@Url.Content(item.ItemImage)" class="cardimg" alt="Card image cap" />
+
+                            }
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@item.ItemName</h5>
+                            <p class="card-text"> @item.ItemDescription</p>
+                        </div>
+                        @*
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">  @item.ItemPrice TK</li>
+                            </ul>*@
+                        <button class="btn btn-secondary btn-block" disabled>@item.ItemPrice TK     |  <i class='fas fa-thumbs-up'></i> @item.ItemRating</button>
+                        <div class="card-body">
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn  button1" })
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+

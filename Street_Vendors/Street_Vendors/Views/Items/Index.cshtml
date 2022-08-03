@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Street_Vendors.Models.Item>
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<div class="row">
+    <div class="pictures h-100">
+
+        <ul class="bubble-boxes">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+
+        <div class="col-12 center-col">
+            <div class="picturesimg">
+                @if (ViewBag.user.ImagePath != null)
+                {
+                    var imgPath = ViewBag.user.ImagePath;
+                    <img src=@Url.Content(imgPath) class="align-self-start rounded-circle" style="width:250px; float:left">
+                }
+                else
+                {
+                    var imgPath = "~/images/profile/profile_2.jpg";
+                    <img src=@Url.Content(imgPath) class="align-self-start rounded-circle" style="width:250px; float:left">
+                }
+                <br />
+                <div class="picturestext">
+                    <h4 data-aos="zoom-in-down" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin">
+                        <span class="badge badge-pill badge-secondary">Username: </span>
+                        <span class="badge badge-pill badge-info">@ViewBag.user.UserName</span>
+                    </h4>
+                    <h4 data-aos="zoom-in-down" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin">
+                        <span class="badge badge-pill badge-secondary">Phone: </span>
+                        <span class="badge badge-pill badge-info">@ViewBag.user.PhoneNumber</span>
+                    </h4>
+                    <h4 data-aos="zoom-in-down" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin">
+                        <span class="badge badge-pill badge-secondary">Type: </span>
+                        <span class="badge badge-pill badge-info">@ViewBag.user.Type</span>
+                    </h4>
+                </div>
+            </div>
+
+
+            @*
+                <div class="clearfix">
+                    <h4><span class="float-left badge badge-pill badge-info">Location:</span> </h4>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input ml-4" id="customSwitch1" checked>
+                        <label class="custom-control-label" for="customSwitch1"></label>
+                    </div>
+                </div>
+            *@
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4 col-10 offset-1 ">
+            <div class="iconimg">
+                <div class="col-md- 12 col-sm-10 center-col text-center icon-box">
+                    <a class="link" data-toggle="popover" title="Add More" href="@Url.Action("Create")"><i class="fas fa-plus  i-large-box i-plain" style="font-size:100px"></i> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 mt-3 mb-2">
+
+            @foreach (var item in Model)
+            {
+                if (User.Identity.GetUserId().Equals(item.ApplicationUser.Id))
+                {
+            <div data-aos="zoom-in-down" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin" class="card cardMyshop">
+                <div class="view overlay">
+                    @if (!string.IsNullOrWhiteSpace(item.ItemImage))
+                    {
+                        <img src="@Url.Content(item.ItemImage)" class="cardimg" alt="Card image cap" />
+
+                    }
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.ItemName)</h5>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.ItemDescription)</p>
+                </div>
+                <button class="btn btn-secondary btn-block" disabled>@item.ItemPrice TK  |  <i class='fas fa-thumbs-up'></i> @item.ItemRating</button>
+                @*
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">  @Html.DisplayFor(modelItem => item.ItemPrice) TK</li>
+
+        </ul>*@
+                <div class="card-body">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn  button1" })
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn  button1" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn  button1" })
+                </div>
+            </div>
+                }
+
+            }
+        </div>
+    </div>
+</div>

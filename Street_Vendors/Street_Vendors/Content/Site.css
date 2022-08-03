@@ -1,0 +1,57 @@
+﻿
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+/* Login desgin */
+
+.box {
+    background: none;
+    display: block;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 10px 10px;
+    width: 250px;
+    outline: none;
+    color: Black;
+    border-radius: 24px;
+    transition: 0.25s;
+    margin-bottom: 10px;
+}
+
+    .box:focus {
+        width: 300px;
+        border-color: #2ecc71
+    }
+
+.boxsubmit {
+    background: white;
+    display: block;
+    text-align: center;
+    border: 2px solid #01478C;
+    padding: 10px 10px;
+    width: 250px;
+    outline: none;
+    color: #000000;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+    .boxsubmit:hover {
+        background: #01478C;
+        color: white;
+    }
+

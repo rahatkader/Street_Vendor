@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Street_Vendors.Models.Map>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<style>
+    #map {
+        height: 800px;
+        width: 100%;
+    }
+</style>
+
+<div class="mapsection">
+    <section class="wrapper">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+    </section>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="custom-control custom-switch float-right">
+                <input type="checkbox" class="custom-control-input" id="locSwitch" name="example" checked>
+                <label class="custom-control-label" for="locSwitch"><span class="badge badge-pill badge-warning">Location:</span></label>
+            </div>
+            <h3>Users</h3>
+            <ul id="user"></ul>
+            <br />
+            <input type="text" id="txt" class="form-control" />
+            <button id="send" class="btn btn-success">Send</button>
+            <br />
+            <h3>Locations</h3>
+            <ul id="location"></ul>
+        </div>
+        <div class="col-md-8">
+            <div id="map"> </div>
+            <script>
+            let map;
+
+            function initMap() {
+                map = new google.maps.Map(document.getElementById("map"), {
+                    center: { lat: 23.733994, lng: 90.392784 },
+                    zoom: 13,
+                });
+                /*
+                ///////// Users current locations using API functionality ////////
+                var userX;
+                var userY;
+                navigator.geolocation.getCurrentPosition(success, failure);
+
+                function success(position) {
+                    userX = position.coords.latitude;
+                    userY = position.coords.longitude;
+                    console.log(userX, userY);
+                    var userCoords = new google.maps.LatLng(userX, userY);
+
+
+                    map.setCenter(userCoords);
+                    map.setZoom(16);
+                    const image = "../images/userGeo.png";
+                    // The marker for user's own location
+                    var userMarker = new google.maps.Marker({
+                        position: userCoords,
+                        icon: image,
+                        map: map
+                    });
+
+                    userContentString = '<div id="content">' +
+                        '<div id="siteNotice">' +
+                        "</div>" +
+                        '<h1 id="firstHeading" class="firstHeading">' + 'This is where you are right now. ' + '</h1>' +
+                        '<div id="bodyContent">' +
+                        '<p><b>' + 'This location is fetched by navigating geolocation of your current position with the help of Javascript Map API.' + '</b>';
+                    var userInfowindow = new google.maps.InfoWindow({
+                        content: userContentString
+                    });
+                    // user hover
+                    userMarker.addListener('mouseover', function () {
+                        userInfowindow.open(map, userMarker);
+                    });
+
+                    // user unhover
+                    userMarker.addListener('mouseout', function () {
+                        userInfowindow.close();
+                    });
+                }
+                function failure() {
+                    console.log("Your browser does not support.")
+                }
+                */
+                /*
+                ///////// Locations fetched from database ////////
+                $.get("@*@Url.Action("GetAllLocation","Map")"*@/*, function (data, status) {
+                    var marker = [];
+                    var contentString = [];
+                    var infowindow = [];
+                    for (var i = 0; i < data.length; i++) {
+                        // The marker, positioned at BracU
+                        marker[i] = new google.maps.Marker({
+                            position: { lat: data[i].Lat, lng: data[i].Lng },
+                            map: map
+                        });
+
+                        contentString[i] = '<div id="content">' +
+                            '<div id="siteNotice">' +
+                            "</div>" +
+                            '<h1 id="firstHeading" class="firstHeading">' + data[i].Name + '</h1>' +
+                            '<div id="bodyContent">' +
+                            '<p><b>' + data[i].Name + '</b>';
+
+                        // marker location info window
+                        infowindow[i] = new google.maps.InfoWindow({
+                            content: contentString[i]
+                        });
+                        var mr = marker[i];
+                        google.maps.event.addListener(marker[i], 'mouseover', (function (mr, i) {
+                            return function () {
+                                infowindow[i].open(map, marker[i]);
+                            }
+                        })(marker[i], i));
+                        google.maps.event.addListener(marker[i], 'mouseout', (function (mr, i) {
+                            return function () {
+                                infowindow[i].close();
+                            }
+                        })(marker[i], i));
+
+                        //user hover
+                        //marker[i].addListener('mouseover', function () {
+                        //    infowindow[i].open(map, marker[i]);
+                        //});
+
+                        // user unhover
+                        //marker[i].addListener('mouseout', function () {
+                        //    infowindow[i].close();
+                        //});
+                    }
+                });
+                */
+
+                newMarker;
+
+            }
+            </script>
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCavPmG7Igh5cuMQZD0pzXqaV6LY9-of2I&callback=initMap"
+                    type="text/javascript"></script>
+        </div>
+    </div>
+
+    @section scripts{
+        <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+        <script src="~/signalr/hubs"></script>
+        <script src="~/app/app.js"></script>
+    }
+</div>
+
+
+

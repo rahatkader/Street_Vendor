@@ -1,0 +1,63 @@
+﻿@model Street_Vendors.Models.AddPhoneNumberViewModel
+@{
+    ViewBag.Title = "Add Phone Number";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<div class="container">
+
+    <div class="bodyPhone">
+
+        <ul class="bubble-b">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <section class="wrapper">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+        </section>
+
+        <div class="row">
+            <div data-aos="zoom-in" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin" class="card  col-10 mx-auto   cardPhone">
+                <div class="card-header"><h4>@ViewBag.Title.</h4></div>
+
+                <div class="card-body">
+                    @using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Number, new { @class = "col-md-10 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-success" value="Submit" />
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer">
+                    @Html.ActionLink("Back", "Index", "MarketPlace", new { @class = "btn btn-danger mr-md-4" })
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

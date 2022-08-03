@@ -1,0 +1,83 @@
+﻿@model Street_Vendors.Models.Item
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<div class="curve">
+    <div class="wave">
+        @*<h1 class="product" style="margin-top:50px;">Product Details</h1>*@
+
+        <div class="custom-shape-divider-bottom-1615112632">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </div> 
+    <section class="wrapper">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+    </section>
+    <ul class="bubble-b">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div class="container">
+        <div data-aos="flip-right" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin" class="card cardDetails">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+
+                        <div class="preview-pic tab-content">
+                            <div class="view overlay">
+                                <div class="tab-pane active" id="pic-1">
+                                    @if (!string.IsNullOrWhiteSpace(Model.ItemImage))
+                                    {
+                                        <img src="@Url.Content(Model.ItemImage)" />
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="details col-md-6">
+                        <h3 class="product-title">Product Details</h3>
+
+                        <h6 class="price"> @Html.DisplayNameFor(model => model.ItemName): <span>  @Html.DisplayFor(model => model.ItemName)</span></h6>
+
+
+                        <h6 class="price"> @Html.DisplayNameFor(model => model.ItemDescription): <span>  @Html.DisplayFor(model => model.ItemDescription)</span></h6>
+                        <h6 class="price"> @Html.DisplayNameFor(model => model.ItemPrice): <span>  @Html.DisplayFor(model => model.ItemPrice)</span></h6>
+                        <h6 class="price"> @Html.DisplayNameFor(model => model.ItemRating): <span>  @Html.DisplayFor(model => model.ItemRating)</span></h6>
+
+                        @if (!Model.UserId.Equals(User.Identity.GetUserId()))
+                        {
+                            @* Item Rating *@
+                            <a class="btn btn-outline-success mt-1" href="@Url.Action("likeItem", "MarketPlace", new { id = Model.ID })">
+                                <i class='fas fa-thumbs-up'></i>
+                            </a>
+                            <a class="btn btn-outline-danger mt-1" href="@Url.Action("dislikeItem", "MarketPlace", new { id = Model.ID })">
+                                <i class='fas fa-thumbs-down'></i>
+                            </a>
+                        }
+                        <div class="action">
+                            <button type="button" onclick="location.href='@Url.Action("Index")'" class="btn buttonCreate">Back</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

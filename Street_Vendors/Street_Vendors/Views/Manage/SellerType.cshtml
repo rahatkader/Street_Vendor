@@ -1,0 +1,125 @@
+﻿@model Street_Vendors.Models.ChangeSellerTypeViewModel
+@{
+    ViewBag.Title = "SellerType";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<div class="container">
+
+    <div class="bodyPhone">
+
+        <ul class="bubble-b">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <section class="wrapper">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+        </section>
+
+        <div class="row">
+            <div data-aos="zoom-in" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin" class="card  col-10 mx-auto   cardPhone">
+                <div class="card-header"><h4>@ViewBag.Title.</h4></div>
+
+                <div class="card-body">
+                    @using (Html.BeginForm("SellerType", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.SellerType, new { @class = "col-md-10 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.SellerType, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-success" value="Submit" />
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer">
+                    @Html.ActionLink("Back", "Index", "Manage", new { @class = "btn btn-danger mr-md-4" })
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
+
+
+
+@*
+    @using (Html.BeginForm("SellerType", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="borderback">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-sm-4 mx-auto login-main border rounded pb-4 pt-5">
+                            <div class="form-group">
+                                <div class="col-md-4 col-10 heading-image text-white text-center">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                            </div>
+                            <!--</div>-->
+                            <div class="form-group">
+                                <label for="sel1">Select list (select one):</label>
+                                <select class="form-control" id="sel1" name="sellist1">
+                                    <option>vegetable</option>
+                                    <option>Fruit</option>
+                                    <option>grocery</option>
+                                    <option>Cloth</option>
+                                    <option>Fish</option>
+                                </select>
+                            </div>
+
+                            <div class="form-inline">
+                                <div class="col-md-10">
+                                    <button type="submit" class="btn buttonCreate" >Save</button>
+                                    <button type="button" onclick="location.href='@Url.Action("Index")'" class="btn buttonCancel">Back</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="bubble-boxes">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+*@

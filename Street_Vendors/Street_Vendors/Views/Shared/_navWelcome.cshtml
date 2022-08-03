@@ -1,0 +1,20 @@
+﻿<nav class="navbar navbar-expand-md navbar-inverse fixed-top">
+    @Html.ActionLink("Street Vendors", "Index", "Home", new { area = "" }, new { @class = "navbar-brand btn btn-outline-light text-info mr-3" })
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="btn btn-outline-info mr-md-4" href="#section1">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-info mr-md-4" href="#section2">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-info mr-md-4" href="#section3">Contact Us</a>
+            </li>
+        </ul>
+        @Html.Partial("_LoginPartial")
+    </div>
+</nav>

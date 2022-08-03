@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+@*
+
+    @foreach (var user in ViewBag.sellers)
+    {
+        <p>@user.UserName</p>
+        foreach (var item in ViewBag.items)
+        {
+            if (user.Id.Equals(item.ApplicationUser.Id))
+            {
+                <p>@item.ItemName</p>
+            }
+        }
+    }
+*@
+
+<div class="marketsection">
+    <section class="wrapper">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+    </section>
+    <div class="row">
+
+        @* Filter view
+        <div class="col-md-4" data-aos="zoom-in" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin">
+            <div class="container">
+                @Html.Partial("_filterView")
+            </div>
+        </div>
+        *@
+        @* Market view *@
+        <div class="col-md-12">
+            <div class="container">
+
+                @foreach (var user in ViewBag.sellers)
+                {
+                    var count = 0;
+                    var sellerRating = 0;
+                    var Rating = 0;
+                    foreach (var product in ViewBag.items)
+                    {
+                        if (user.Id.Equals(product.ApplicationUser.Id))
+                        {
+                            count++;
+                            Rating += product.ItemRating;
+                        }
+                    }
+                    if (count > 0)
+                    {
+                        sellerRating = Rating/count ;
+                        <div class="card shadow-lg p-1 mb-5 bg-white" data-aos="zoom-in" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin">
+                            <div class="card-body">
+                                <a href="@Url.Action("ProfileDetails","MarketPlace", new { id = user.Id })">
+                                    <div class="media ml-0 mr-0 mt-0 mb-1">
+                                        @if (user.ImagePath != null)
+                                        {
+                                            var imgPath = user.ImagePath;
+                                            <img src=@Url.Content(imgPath) class="align-self-start rounded-circle mr-2" style="width:60px;">
+                                        }
+                                        else
+                                        {
+                                            var imgPath = "~/images/profile/profile_2.jpg";
+                                            <img src=@Url.Content(imgPath) class="align-self-start rounded-circle mr-2" style="width:60px;">
+                                        }
+                                        <div class="media-body mt-4">
+                                            <h5>
+                                                <span class="float-left">@user.UserName</span>
+                                                <span class="float-right"><i class='fas fa-star'></i> @sellerRating</span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </a>
+                                <hr />
+                                <div class="row ml-1">
+                                    @foreach (var item in ViewBag.items)
+                                    {
+                                        if (user.Id.Equals(item.ApplicationUser.Id))
+                                        {
+
+                                            <div class="card mr-2" style="width:200px; color:black">
+                                                <div class="view overlay">
+                                                    @if (!string.IsNullOrWhiteSpace(item.ItemImage))
+                                                    {
+                                                        @*<img class="card-img-top" src="@Url.Content(item.ItemImage)" style="width:100%" />*@
+                                                        <img src="@Url.Content(item.ItemImage)" class="cardimg" alt="Card image cap" />
+                                                    }
+                                                </div>
+                                                <div class="card-body">
+                                                    <p><b>@item.ItemName</b></p>
+                                                    <button class="btn btn-secondary btn-block" disabled>@item.ItemPrice TK  |  <i class='fas fa-thumbs-up'></i> @item.ItemRating</button>
+                                                    @Html.ActionLink("Details", "Details", "MarketPlace", new { id = item.ID }, new { @class = "btn btn-outline-info btn-block mt-1" })
+                                                </div>
+                                            </div>
+
+                                        }
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

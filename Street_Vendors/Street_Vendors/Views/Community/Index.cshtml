@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body1 {
+        margin: 0 auto;
+        max-width: 800px;
+        padding: 0 20px;
+    }
+
+    .container1 {
+        border: 2px solid #dedede;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .darker {
+        border-color: #ccc;
+        background-color: #ddd;
+    }
+
+    .container1::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .container1 img {
+        float: left;
+        max-width: 60px;
+        width: 100%;
+        margin-right: 20px;
+        border-radius: 50%;
+    }
+
+        .container1 img.right {
+            float: right;
+            margin-left: 20px;
+            margin-right: 0;
+        }
+
+    .time-right {
+        float: right;
+        color: #aaa;
+    }
+
+    .time-left {
+        float: left;
+        color: #999;
+    }
+</style>
+
+<div class="container">
+    <h1 class="text-center mb-2"><span class="badge badge-pill badge-info">Chat Box</span></h1>
+    <div class="row">
+        <div class="col-md-4">
+            <h5><span class="badge badge-pill badge-primary">Active Users</span></h5>
+            <ul id="user" class="list-group"></ul>
+        </div>
+        <div class="col-md-8">
+            <div class="card shadow-lg p-1 bg-white">
+                <div class="card-body">
+                    <h5>Chat Message</h5>
+                    <div class="" id="message">
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text" id="txt" placeholder="Search">
+                        <button class="btn btn-secondary my-2 my-sm-0" id="send">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        var hub = $.connection.chatHub;
+        debugger;
+        hub.client.message = function (msg) {
+            $("#message").append(chatTemplate(msg));
+        }
+
+        hub.client.user = function (msg) {
+            $("#user").append("<li class='list-group-item list-group-item-primary'>" + msg + "</li>")
+        }
+
+        $.connection.hub.start(function () {
+            $("#send").click(function () {
+                hub.server.send($("#txt").val());
+                $("#txt").val(" ");
+            })
+        })
+
+        function chatTemplate(msg) {
+            var result = "";
+            var dt = new Date();
+            var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+            if (msg.split("~")[0] == "You") {
+                result += "<div class='container1'>" +
+                    "" +
+                    "<p><b>" + msg.split("~")[1] + "</b></p>" +
+                    "<span class='time-right'>" + time + "</span> " +
+                    "</div>";
+            } else {
+                result += "<div class='container1 darker'>" +
+                    "" +
+                    "<p><b>" + msg.split("~")[1] + "</b></p>" +
+                    "<span class='time-right'>" + time + "</span> " +
+                    "</div>";
+            }
+            return result;
+        }
+    </script>
+
+}
+

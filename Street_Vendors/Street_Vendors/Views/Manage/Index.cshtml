@@ -1,0 +1,265 @@
+﻿@model Street_Vendors.Models.ApplicationUser
+
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Manage";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<div class="bodyProfile">
+    <section class="profilesection">
+
+        <section class="wrapper">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+
+        </section>
+        <ul class="bubble-b">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class="row">
+            <div class="col-sm-8 mx-auto ">
+                <div data-aos="flip-right" data-aos-easing="linear" data-aos-duration="1500" id="slider-pagin" class="card mt-5 mb-5 cardProfile">
+
+                    <div class="waveProfile">
+                        <div class="product" style="margin-top:50px;">
+                            @if (Model.ImagePath != null)
+                            {
+                                var imgPath = Model.ImagePath;
+                                <a href="@Url.Action("EditPic", "Manage")">
+                                    <img src=@Url.Content(imgPath) class="align-self-start rounded-circle" style="width:250px;height:250px;">
+                                </a>
+                            }
+                            else
+                            {
+                                var imgPath = "~/images/profile/profile_2.jpg";
+                                <a href="@Url.Action("EditPic", "Manage")">
+                                    <img src=@Url.Content(imgPath) class="align-self-start rounded-circle" style="width:250px;">
+                                </a>
+                            }
+
+                        </div>
+                        <div class="profile-shape-divider-bottom-1615578774">
+                            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                                <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="col-md-12 ml-4">
+                        <h4>
+                            <span class="badge badge-pill badge-secondary">Username:</span>
+                            <span class="badge badge-pill badge-info">@User.Identity.GetUserName()</span>
+                        </h4>
+
+                        @using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            <h4>
+                                <span class="badge badge-pill badge-secondary">Phone:</span>
+                                <span class="badge badge-pill badge-info">@Model.PhoneNumber</span>
+
+                                @if (Model.PhoneNumber != null)
+                                {
+                                    <span class="badge badge-pill">@Html.ActionLink("Change", "AddPhoneNumber")</span>
+                                    @Html.AntiForgeryToken()
+                                    <input type="submit" value="Remove" class="btn btn-link" />
+                                }
+                                else
+                                {
+                                    <span class="badge badge-pill">@Html.ActionLink("Add", "AddPhoneNumber")</span>
+                                }
+                            </h4>
+                        }
+
+
+                        <h4>
+                            <span class="badge badge-pill badge-secondary">Type:</span>
+                            <span class="badge badge-pill badge-info">@Model.Type</span>
+                            @if (Model.Type != null)
+                            {
+                                <span class="badge badge-pill">@Html.ActionLink("Change", "SellerType")</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-pill">@Html.ActionLink("Add", "SellerType")</span>
+                            }
+                        </h4>
+
+                        <button class="btn btn-change" style="margin-bottom:20px;margin-top:20px" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <b>See More</b>
+                        </button>
+
+                        <div class="collapse" id="collapseExample">
+
+                            <h4>
+                                <span class="badge badge-pill badge-secondary">Password:</span>
+                                <span class="badge badge-pill badge-info">
+                                    @if (Model.PasswordHash != null)
+                                    {
+
+
+                                        @Html.ActionLink("Change your password", "ChangePassword", null, new { id = "OT", style = "color: white" })
+                                    }
+                                    else
+                                    {
+
+                                        @Html.ActionLink("Create", "SetPassword", null, new { id = "OT", style = "color: white" })
+                                    }
+                                </span>
+                            </h4>
+                            <h4>
+                                <span class="badge badge-pill badge-info">External Logins:</span>
+                                <span class="badge badge-pill badge-secondary">
+                                    @Model.Logins.Count [@Html.ActionLink("Manage", "ManageLogins", null, new { id = "OT", style = "color: white" })]
+                                </span>
+
+                            </h4>
+                            <div class="icon-block" style="text-align:center">
+                                <a href="https://www.facebook.com/"><i class="fa fa-facebook "></i></a>
+                                <a href="https://google.com/"><i class="fa fa-google  "></i></a>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+
+
+@*
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header"><h4>Profile @ViewBag.Title</h4></div>
+
+            <div class="card-body">
+
+                <p class="text-success">@ViewBag.StatusMessage</p>
+                <div>
+                    <img src="~/images/profile/profile_2.jpg" class="align-self-start rounded-circle" style="width:150px;">
+                    <br />
+                    <h4>
+                        <span class="badge badge-pill badge-secondary">Username:</span>
+                        <span class="badge badge-pill badge-secondary">@User.Identity.GetUserName()</span>
+                    </h4>
+                    <h4>
+                        <span class="badge badge-pill badge-secondary">Phone:</span>
+                        <span class="badge badge-pill badge-secondary">@Model.PhoneNumber</span>
+                        @if (Model.PhoneNumber != null)
+                        {
+                            <br />
+                            <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                            using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                            }
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Add", "AddPhoneNumber")
+                        }
+                    </h4>
+                </div>
+                <div>
+                    <h6>Change your account settings</h6>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>Password:</dt>
+                        <dd>
+                            [
+                            @if (Model.HasPassword)
+                            {
+                                @Html.ActionLink("Change your password", "ChangePassword")
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Create", "SetPassword")
+                            }
+                            ]
+                        </dd>
+                        <dt>External Logins:</dt>
+                        <dd>
+                            @Model.Logins.Count [
+                            @Html.ActionLink("Manage", "ManageLogins") ]
+                        </dd>*@
+@*
+    Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+     See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+        for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+     Uncomment the following block after you have set up two-factor authentication
+*@
+
+@*<dt>Phone Number:</dt>
+    <dd>
+        @(Model.PhoneNumber ?? "None")
+        @if (Model.PhoneNumber != null)
+        {
+            <br />
+            <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+            using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+            }
+        }
+        else
+        {
+            <h6>Add Phone number:@Html.ActionLink("Add", "AddPhoneNumber")</h6>
+            <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")]</text>
+        }
+    </dd>
+
+    <dt>Two-Factor Authentication:</dt>
+    <dd>
+        <p>
+            There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+            for details on setting up this ASP.NET application to support two-factor authentication.
+        </p>*@
+@*@if (Model.TwoFactor)
+    {
+        using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <text>Enabled
+            <input type="submit" value="Disable" class="btn btn-link" />
+            </text>
+        }
+    }
+    else
+    {
+        using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <text>Disabled
+            <input type="submit" value="Enable" class="btn btn-link" />
+            </text>
+        }
+    }*@
+@*</dd>*@
+@*
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>*@
