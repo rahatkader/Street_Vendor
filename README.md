@@ -2,7 +2,7 @@
 
 # Overview
 
-Here we developed a website on Street Vendors which will give them an online platform to communicate with their customers. Customers can easily find street vendors through our website. They can also see their products and product details. They can request specific vendors to have their contact information. The vendors can accept or deny the customer’s request.
+Here we developed a website for Street Vendors which will give them an online platform to communicate with their customers. Customers can easily find street vendors through our website. They can also see their products and product details. They can request specific vendors to have their contact information. The vendors can accept or deny the customer’s request.
 
 # Description
 
